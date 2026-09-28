@@ -1,0 +1,16 @@
+{
+  "name": "kafka-home-cli",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interactive KafkaJS producer and consumer",
+  "author": "prathik-mishra",
+  "type": "commonjs",
+  "main": "kafkaClient.js",
+  "scripts": {
+    "producer": "node kafkaProducer.js",
+    "consumer": "node kafkaConsumer.js"
+  },
+  "dependencies": {
+    "kafkajs": "^2.2.4"
+  }
+}
