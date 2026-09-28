@@ -9,11 +9,18 @@ async function init(){
 
   //adding Temp code to delete the topics which were previously created:
   try{
-    await admin.deleteTopics({
+    const topics = await admin.listTopics();
+    const kafkaTopicSize = topics.length;
+    if(kafkaTopicSize >= 1){
+      await admin.deleteTopics({
       topics: ['crm-metaData'],
       timeout: 5000,
     });
-    console.log('Topic deleted successfully');
+      console.log('Topic deleted successfully');
+    }else{
+      console.log('No Topic present to be deleted');
+    }
+
   }catch(err){
     console.error('Error deleting topic:', err.message);
   }
@@ -33,6 +40,14 @@ async function init(){
     console.log(createdTopics ? 'Topic created' : 'Topic already exists');
   }catch(err){
     console.error('Error creating topic:', err.message);
+  }
+
+  //get the list of topics added into kafka by admin at startup:
+  try{
+    console.log("fetching local topics of kafka on start-up");
+    console.log(await admin.listTopics());
+  }catch(err){
+    console.log("Issue while getting local topics list" +err);
   }
 
   await admin.disconnect();
